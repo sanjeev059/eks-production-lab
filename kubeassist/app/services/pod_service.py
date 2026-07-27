@@ -27,3 +27,20 @@ class PodService:
             pod_list.append(pod.get_dict())
 
         return pod_list
+    def get_pod_by_name(self, pod_name: str, namespace: str):
+
+        kube_pod = self.kube_client.get_pod_by_name(
+            pod_name=pod_name,
+            namespace=namespace
+        )
+
+        pod = Pod(
+            name=kube_pod.metadata.name,
+            namespace=kube_pod.metadata.namespace,
+            kind=kube_pod.kind,
+            created_at=str(kube_pod.metadata.creation_timestamp),
+            updated_at=str(kube_pod.metadata.creation_timestamp),
+            status=kube_pod.status.phase
+        )
+
+        return pod.get_dict()

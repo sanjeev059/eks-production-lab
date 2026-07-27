@@ -1,37 +1,10 @@
 from fastapi import FastAPI
-from prometheus_fastapi_instrumentator import Instrumentator
+from app.api import pods
 
-app = FastAPI(title="Auth Service")
-
+app = FastAPI(title="KubeAssist")
 
 @app.get("/")
 def home():
-    return {
-        "service": "auth-service",
-        "status": "running"
-    }
+    return {"message": "Welcome to KubeAssist"}
 
-
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy"
-    }
-
-
-@app.get("/ready")
-def ready():
-    return {
-        "status": "ready"
-    }
-
-
-@app.get("/live")
-def live():
-    return {
-        "status": "alive"
-    }
-
-
-# Automatically exposes /metrics
-Instrumentator().instrument(app).expose(app)
+app.include_router(pods.router)

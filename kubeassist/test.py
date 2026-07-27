@@ -2,10 +2,10 @@ from app.clients.kube_client import KubernetesClient
 
 client = KubernetesClient()
 
-pods = client.get_all_pods()
+pod = client.get_pod_by_name(
+    pod_name="auth-service-5ff57c7bcb-67l4b",
+    namespace="production"
+)
 
-for kube_pod in pods.items:
-    print(kube_pod.metadata.name)
-    print(kube_pod.metadata.namespace)
-    print(kube_pod.status.phase)
-    print(kube_pod.metadata.creation_timestamp)
+print(type(pod))
+print(pod.metadata.name)
