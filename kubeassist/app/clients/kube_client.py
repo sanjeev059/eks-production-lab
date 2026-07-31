@@ -19,3 +19,6 @@ class KubernetesClient:
             name=pod_name,
             namespace=namespace
         )
+    def get_all_nodes(self):
+
+        return self.client.list_node()

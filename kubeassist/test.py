@@ -2,10 +2,11 @@ from app.clients.kube_client import KubernetesClient
 
 client = KubernetesClient()
 
-pod = client.get_pod_by_name(
-    pod_name="auth-service-5ff57c7bcb-67l4b",
-    namespace="production"
-)
+nodes = client.get_all_nodes()
 
-print(type(pod))
-print(pod.metadata.name)
+for kube_node in nodes.items:
+    print(kube_node.metadata.name)
+    print(kube_node.status.node_info.kubelet_version)
+    print(kube_node.status.node_info.os_image)
+    print(kube_node.status.node_info.container_runtime_version)
+    print("----------------")
