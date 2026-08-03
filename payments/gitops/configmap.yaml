@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+  name: payments-config
+  namespace: payments
+data:
+  APP_NAME: "payments"
+  APP_VERSION: "1.0.0"
+  LOG_LEVEL: "INFO"
