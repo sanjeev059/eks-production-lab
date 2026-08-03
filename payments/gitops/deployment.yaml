@@ -32,10 +32,12 @@ spec:
         - name: payment-app
           image: payment-api:v1
           imagePullPolicy: IfNotPresent
-          
+
           envFrom:
             - configMapRef:
                 name: payments-config
+            - secretRef:
+                name: payment-secret
           ports:
             - containerPort: 5000
 
