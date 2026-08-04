@@ -3,7 +3,8 @@ kind: Service
 metadata:
   name: payment-service
   namespace: payments
-
+  labels:
+    app: payment-app      # <-- Add this
 spec:
   selector:
     app: payment-app
