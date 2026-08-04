@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: payment-app
-          image: payment-api:v1
+          image: payment-api:v2
           imagePullPolicy: IfNotPresent
 
           envFrom:
