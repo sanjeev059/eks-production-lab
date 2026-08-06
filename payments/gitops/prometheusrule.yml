@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+
+metadata: 
+  name: payment-alert-rules
+  namespace: monitoring
+  labels:
+    release: monitoring
+
+spec:
+  groups:
+  - name: payment-rules
+    rules:
+    - alert: PaymentHighCPUUsage
+      expr: kube_deployment_status_replicas_available{
+          namespace="payments",
+          deployment="payment-app"
+        } == 0
+      for: 10m
+      labels:
+        severity: critical
+        environment: production
+      annotations:
+        summary: "High CPU usage detected"
+        description: "CPU usage for payment-app has been above 80% for the last 10 minutes."

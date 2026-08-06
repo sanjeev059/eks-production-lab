@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1beta1
+kind: AlertmanagerConfig
+
+metadata:
+  name: payment-alertmanager-config
+  namespace: monitoring
+  labels:
+    release: monitoring
+
+spec:
+
+  route:
+    groupBy:
+      - alertname
+
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 1h
+
+    receiver: payment-team
+
+  receivers:
+
+  - name: payment-team
+
+    emailConfigs:
+
+    - to: sre-team@company.com
+
+      from: alertmanager@company.com
+
+      smarthost: smtp.company.com:587
+
+      authUsername: alertmanager
+
+      authPassword:
+        name: smtp-secret
+        key: password
+
+      requireTLS: true
